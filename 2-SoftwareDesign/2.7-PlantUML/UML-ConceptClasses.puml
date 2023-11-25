@@ -1,20 +1,19 @@
 @startuml
-
 hide circle
 title UML Concept Classes
 
-Class User {
+Class Consumer {
     login
     password
 }
 
-CLass AdditionalUserInfo {
+CLass AdditionalConsumerInfo {
     age
     email
     name
 }
 
-Class SendingQuestionsAboutHealth {
+Class QuestionsAboutHealth {
     questions
     date
 }
@@ -25,12 +24,11 @@ Class HealtCenterEmp {
     age 
 }
 
-User <|-- HealtCenterEmp
+Consumer <|-- HealtCenterEmp
 
-AdditionalUserInfo o-- User
+AdditionalConsumerInfo o-- Consumer
 
-User"1" --> "1"SendingQuestionsAboutHealth : send
+Consumer"1" --> "1"QuestionsAboutHealth : send
 
-HealtCenterEmp"1" <-- "1"SendingQuestionsAboutHealth : receive
-
+HealtCenterEmp"1" <-- "1"QuestionsAboutHealth : receive
 @enduml
