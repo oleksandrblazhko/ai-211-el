@@ -1,0 +1,124 @@
+{
+  "description": "Schema",
+  "properties": {
+    "Employee of the health center": {
+      "description": "Employee of the health center details",
+      "type": "object",
+      "properties": {
+        "Age": {
+          "description": "Employee age",
+          "type": "number",
+          "minimum": 0
+        },
+        "Name": {
+          "description": "Employee name",
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 50
+        },
+        "Specialization": {
+          "description": "Specialization",
+          "type": "string",
+          "minLength": 6,
+          "maxLength": 20
+        }
+      },
+      "required": ["Age", "Name", "Specialization"]
+    },
+    "Information about the consumer": {
+      "description": "Consumer information",
+      "type": "object",
+      "properties": {
+        "Age": {
+          "description": "Consumer age",
+          "type": "number",
+          "minimum": 0
+        },
+        "Email": {
+          "description": "Consumer email",
+          "type": "string",
+          "pattern": "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}$"
+        },
+        "Name": {
+          "description": "Consumer name",
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 50
+        }
+      },
+      "required": ["Age", "Email", "Name"]
+    },
+    "Response to the consumer": {
+      "description": "Provides a response to the consumer",
+      "type": "object",
+      "properties": {
+        "Date": {
+          "description": "Date of the response",
+          "type": "string",
+          "format": "date"
+        },
+        "Response": {
+          "description": "Response to a request",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 300
+        }
+      },
+      "required": ["Date", "Response"]
+    },
+    "Questions about health": {
+      "description": "User's questions about health",
+      "type": "object",
+      "properties": {
+        "Date": {
+          "description": "Date",
+          "type": "string",
+          "format": "date"
+        },
+        "Text": {
+          "description": "User's text about their health",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 500
+        }
+      },
+      "required": ["Date", "Text"]
+    },
+    "Consumer": {
+      "description": "Consumer details",
+      "type": "object",
+      "properties": {
+        "Login": {
+          "description": "Consumer login",
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_-]{3,20}$"
+        },
+        "Password": {
+          "description": "Consumer password",
+          "type": "string",
+          "maxLength": 20
+        }
+      },
+      "required": ["Login", "Password"]
+    },
+    "Health data": {
+      "description": "View health data details",
+      "type": "object",
+      "properties": {
+        "Date": {
+          "description": "Date",
+          "type": "string",
+          "format": "date"
+        },
+        "Health data": {
+          "description": "Health data",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 300
+        }
+      },
+      "required": ["Date", "Health data"]
+    }
+  },
+  "type": "object"
+}
