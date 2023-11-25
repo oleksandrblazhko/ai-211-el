@@ -1,22 +1,20 @@
 @startuml
-
 title Activity Diagram sendQuestion()
 
 start
-:Користувач надсилає питання  з приводу здоров'я;
-:Програма перевіряє коректність наданих даних; 
-if (Чи всі поля заповнені?) then (yes)
-   :Всі поля заповнені;
-   if (Значення полів проходять валідатори) then (yes)
-       :Значення полів правильні;
-   else (no)
-       :Значення полів неправильні;
-       :Користувачеві пропонується повторно ввести дані;
-   endif
+:Consumer sends questions about health;
+:The program checks the correctness of the provided data;
+if (Are all fields filled in?) then (yes)
+    :All fields are filled;
+    if (Field values pass validators) then (yes)
+        :The field values are correct;
+    else (no)
+        :The field values are incorrect;
+        :The consumer is prompted to re-enter the data;
+    endif
 else (no)
-   :Не всі поля заповнені;
-   :Користувачеві пропонується повторно ввести дані;
+    :Not all fields are filled;
+    :The consumer is prompted to re-enter the data;
 endif
 stop
-
 @enduml
