@@ -1,1 +1,1 @@
-![](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/oleksandrblazhko/ai-211-el/Lab_Work_7/2-SoftwareDesign/2.7-PlantUML/UML-Activity.puml)
+![activity](https://github.com/oleksandrblazhko/ai-211-el/assets/81969518/6715a566-a4ec-40c6-b7d7-a9e7550f7cf4)
