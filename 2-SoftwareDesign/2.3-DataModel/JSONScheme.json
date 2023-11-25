@@ -1,0 +1,138 @@
+{
+    "description": "Схема",
+    "properties": {
+        "employee of the health center": {
+            "description": "Employee of the health center details",
+            "properties": {
+                "Age": {
+                    "required": true,
+                    "description": "employee age",
+                    "type": "number"
+                },
+                "Name": {
+                    "required": true,
+                    "description": "employee name",
+                    "type": "string"
+                },
+                "Specialization": {
+                    "required": true,
+                    "description": "specialization",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "Specialization",
+                "Name",
+                "Age"
+            ],
+            "type": "object"
+        },
+        "information about the consumer": {
+            "description": "consumer informations",
+            "properties": {
+                "Age": {
+                    "description": "consumer age",
+                    "required": true,
+                    "type": "number"
+                },
+                "Email": {
+                    "description": "consumer email",
+                    "required": true,
+                    "type": "string"
+                },
+                "Name": {
+                    "description": "consumer name",
+                    "required": true,
+                    "type": "string"
+                }
+            },
+            "required": [
+                "Age",
+                "Email",
+                "Name"
+            ],
+            "type": "object"
+        },
+        "response to the consumer": {
+            "description": "Provides a response to the consumer",
+            "properties": {
+                "Date": {
+                    "constraints": "Value = current date",
+                    "description": "Date of the response",
+                    "type": "date"
+                },
+                "Response": {
+                    "constraints": "0 < Length < 300 characters",
+                    "description": "Response to a request",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "Response",
+                "Date"
+            ],
+            "type": "object"
+        },
+        "questions about health": {
+            "description": "User's send questions about health",
+            "properties": {
+                "Date": {
+                    "constraints": "Value = current date",
+                    "description": "Date",
+                    "type": "date"
+                },
+                "Text": {
+                    "constraints": "0 < Length < 500 characters",
+                    "description": "User's text about their health",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "Text",
+                "Date"
+            ],
+            "type": "object"
+        },
+        "consumer": {
+            "description": "consumer details",
+            "properties": {
+                "Login": {
+                    "constraints": "Length < 20 characters",
+                    "description": "consumer login",
+                    "type": "string"
+                },
+                "Password": {
+                    "constraints": "Length < 20 characters",
+                    "description": "consumer password",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "Login",
+                "Password"
+            ],
+            "type": "object"
+        },
+        "health data": {
+            "description": "View health data details",
+            "properties": {
+                "Date": {
+                    "constraints": "Value <= current date",
+                    "description": "Date",
+                    "type": "date"
+                },
+                "Health data": {
+                    "constraints": "0 < Length < 300 characters",
+                    "description": "Health data",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "Health data",
+                "Date"
+            ],
+            "type": "object"
+        }
+    },
+    "type": "object"
+}
