@@ -1,1 +1,1 @@
-![](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/oleksandrblazhko/ai-211-el/Lab_Work_7/2-SoftwareDesign/2.7-PlantUML/DataModel.puml)
+![rr](https://github.com/oleksandrblazhko/ai-211-el/assets/81969518/77d6bfd8-bb77-4993-8fb3-4e8713eb98db)
