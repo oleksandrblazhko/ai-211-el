@@ -74,7 +74,7 @@
             "type": "object"
         },
         "questions about health": {
-            "description": "User's send questions about health",
+            "description": "Consumer's send questions about health",
             "properties": {
                 "Date": {
                     "constraints": "Value = current date",
@@ -83,7 +83,7 @@
                 },
                 "Text": {
                     "constraints": "0 < Length < 500 characters",
-                    "description": "User's text about their health",
+                    "description": "Consumer text about his health",
                     "type": "string"
                 }
             },
