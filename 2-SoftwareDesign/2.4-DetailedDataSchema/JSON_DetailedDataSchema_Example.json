@@ -49,7 +49,7 @@
       "required": ["Age", "Email", "Name"]
     },
     "Response to the consumer": {
-      "description": "Provides a response to the consumer",
+      "description": "Consumer Provides a response to the consumer",
       "type": "object",
       "properties": {
         "Date": {
@@ -67,7 +67,7 @@
       "required": ["Date", "Response"]
     },
     "Questions about health": {
-      "description": "User's questions about health",
+      "description": "Consumer's questions about health",
       "type": "object",
       "properties": {
         "Date": {
@@ -76,7 +76,7 @@
           "format": "date"
         },
         "Text": {
-          "description": "User's text about their health",
+          "description": "Consumer text his health",
           "type": "string",
           "minLength": 1,
           "maxLength": 500
