@@ -1,0 +1,34 @@
+@startuml
+hide circle
+title UML Concept Classes
+
+Class Consumer {
+    login
+    password
+}
+
+CLass AdditionalConsumerInfo {
+    age
+    email
+    name
+}
+
+Class QuestionsAboutHealth {
+    questions
+    date
+}
+
+Class HealtCenterEmp {
+    position
+    name 
+    age 
+}
+
+Consumer <|-- HealtCenterEmp
+
+AdditionalConsumerInfo o-- Consumer
+
+Consumer"1" --> "1"QuestionsAboutHealth : send
+
+HealtCenterEmp"1" <-- "1"QuestionsAboutHealth : receive
+@enduml

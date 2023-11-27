@@ -1,0 +1,35 @@
+@startjson
+{
+    "data": [
+        {
+            "Employee of the health center": {
+                "Age": "45",
+                "Name": "Andrii",
+                "Specialization": "Доктор"
+            },
+            "response to the consumer": {
+                "Date": "10.11.2023",
+                "Response": "Текст відповіді"
+            },
+            "questions about health": {
+                "Date": "Дата",
+                "Text": "Досвід створення питань користувачем"
+            },
+            "consumer": {
+                "Login": "el2000",
+                "Password": "01321551"
+            },
+            "information about the consumer": {
+                "Age": "24",
+                "Email": "el@ukr.com",
+                "Name": "El"
+            },
+            "health data": {
+                "Date": "10.11.2023",
+                "Health data": "Текст"
+            }
+        }
+    ],
+    "description": "Приклад "
+}
+@endjson
