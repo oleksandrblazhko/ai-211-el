@@ -7,7 +7,7 @@ import java.util.Date
 @Parcelize
 data class HealthData(
     var dataId: String? = null,
-    var userId: String? = null,
+    var ConsumerId: String? = null,
     var date: Date,
     var healthDataText: String? = null
 ) : Parcelable
