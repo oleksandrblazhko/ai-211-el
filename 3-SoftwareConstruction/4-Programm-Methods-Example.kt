@@ -31,47 +31,22 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun sendQuestion() {
-        // Отримання тексту, введеного в EditText
-        val questionText = binding.qstEd1.text.toString()
-
-        // Перевірка валідації введення: порожнє або більше 500 символів
-        if (questionText.isEmpty() || questionText.length > 500) {
-            // Показ Toast-повідомлення, якщо валідація не вдається
-            Toast.makeText(this, "Будь ласка, введіть питання", Toast.LENGTH_SHORT).show()
-            return
-        }
-
-        // Генерація унікального ідентифікатора для питання про здоров'я
-        val quesId = dbRef.push().key!!
-
-        // Створення об'єкту HealthQuestion із введеного питання та поточної дати
-        val question = HealthQuestion(quesId, questionText)
-
-        // Створення та відображення ProgressDialog для процесу збереження
-        val progressDialog = ProgressDialog(this)
-        progressDialog.setMessage("Збереження...")
-        progressDialog.show()
-
-        // Збереження питання про здоров'я в Firebase Realtime Database
-        dbRef.child(quesId).setValue(question)
-            .addOnCompleteListener { task ->
-                // Закриття ProgressDialog після завершення операції бази даних
-                progressDialog.dismiss()
-
-                // Визначення, чи була успішна операція бази даних
-                val resultMessage = if (task.isSuccessful) {
-                    // Встановлення повідомлення про успіх
-                    "Питання успішно збережено"
-                } else {
-                    // Встановлення повідомлення про невдачу, включаючи повідомлення про помилку
-                    "Помилка: ${task.exception?.message}"
-                }
-
-                // Відображення діалогового вікна із повідомленням про результат
-                showResultDialog(resultMessage)
-            }
+    fun sendQuestions(question: String, submission_date: Date): Int {
+    // Checking input validation: question length should be between 1 and 500 characters
+    if (question.isEmpty() || question.length > 500) {
+        return -2 // Return -2 if the question length is invalid
     }
+
+    // Check if the submission_date is not the current day (assuming the current date is currentDate)
+    val currentDate = Date() // Get current date
+    if (submission_date != currentDate) {
+        return -3 // Return -3 for any other error
+    }
+
+    // Your logic to send the question to the database
+    // Assuming the sending process was successful
+    return 1 // Return 1 if the question was successfully sent
+}
 
     private fun showResultDialog(resultMessage: String) {
         // Створення AlertDialog із визначеним повідомленням про результат
