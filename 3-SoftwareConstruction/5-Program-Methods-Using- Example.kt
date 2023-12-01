@@ -6,40 +6,47 @@ import com.google.firebase.database.ValueEventListener
 // ...
 
 private fun sendQuestion() {
+    // Getting text entered in EditText
     val questionText = binding.qstEd1.text.toString()
 
-    // Перевірка, чи введене питання не порожнє і його довжина не перевищує 500 символів
+    // Checking input validation: empty or more than 500 characters
     if (questionText.isEmpty() || questionText.length > 500) {
-        Toast.makeText(this, "Будь ласка, введіть дійсне питання", Toast.LENGTH_SHORT).show()
+        // Showing a Toast message if validation fails
+        Toast.makeText(this, "Please enter a question", Toast.LENGTH_SHORT).show()
         return
     }
 
-    // Унікальний ідентифікатор для нового питання
+    // Generating a unique identifier for the health question
     val quesId = dbRef.push().key!!
 
-    // Створення об'єкту HealthQuestion з введеним питанням
+    // Creating a HealthQuestion object from the entered question and the current date
     val question = HealthQuestion(quesId, questionText)
 
-    // Відображення ProgressDialog під час збереження
+    // Creating and displaying a ProgressDialog for the saving process
     val progressDialog = ProgressDialog(this)
-    progressDialog.setMessage("Збереження...")
+    progressDialog.setMessage("Saving...")
     progressDialog.show()
 
-    // Збереження питання в базу даних
+    // Saving the health question to Firebase Realtime Database
     dbRef.child(quesId).setValue(question)
         .addOnCompleteListener { task ->
+            // Dismissing the ProgressDialog after the database operation completes
             progressDialog.dismiss()
 
-            // Відображення результату в діалоговому вікні
+            // Determining if the database operation was successful
             val resultMessage = if (task.isSuccessful) {
-                "Питання успішно збережено"
+                // Setting a success message
+                "Question successfully saved"
             } else {
-                "Помилка: ${task.exception?.message}"
+                // Setting a failure message, including an error message if available
+                "Error: ${task.exception?.message}"
             }
 
+            // Showing a dialog window with the result message
             showResultDialog(resultMessage)
         }
 }
+
 
 // Додатковий метод для демонстрації читання даних з бази даних
 private fun readHealthQuestions() {
