@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun saveHealthQuestion() {
+    private fun sendQuestion() {
         // Отримання тексту, введеного в EditText
         val questionText = binding.qstEd1.text.toString()
 
