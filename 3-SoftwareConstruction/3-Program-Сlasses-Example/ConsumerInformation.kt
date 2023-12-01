@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class UserInformation(
+data class ConsumerInformation(
     var ConsumerId: String? = null,
     var name: String? = null,
     var email: String? = null,
