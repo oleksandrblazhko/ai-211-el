@@ -48,40 +48,40 @@ private fun sendQuestion() {
 }
 
 
-// Додатковий метод для демонстрації читання даних з бази даних
+// Additional method to demonstrate reading data from the database
 private fun readHealthQuestions() {
-    // Відображення ProgressDialog під час операції читання
-    val progressDialog = ProgressDialog(this)
-    progressDialog.setMessage("Читання...")
-    progressDialog.show()
+     // Display ProgressDialog during read operation
+     val progressDialog = ProgressDialog(this)
+     progressDialog.setMessage("Reading...")
+     progressDialog.show()
 
-    // Читання даних з бази даних
-    dbRef.addListenerForSingleValueEvent(object : ValueEventListener {
-        override fun onDataChange(snapshot: DataSnapshot) {
-            progressDialog.dismiss()
+     // Reading data from the database
+     dbRef.addListenerForSingleValueEvent(object : ValueEventListener {
+         override fun onDataChange(snapshot: DataSnapshot) {
+             progressDialog.dismiss()
 
-            // Обробка отриманих даних
-            val questionsList = mutableListOf<HealthQuestion>()
-            for (childSnapshot in snapshot.children) {
-                val question = childSnapshot.getValue(HealthQuestion::class.java)
-                question?.let {
-                    questionsList.add(it)
-                }
-            }
+             // Processing of received data
+             val questionsList = mutableListOf<HealthQuestion>()
+             for (childSnapshot in snapshot.children) {
+                 val question = childSnapshot.getValue(HealthQuestion::class.java)
+                 question?.let {
+                     questionsList.add(it)
+                 }
+             }
 
-            // Відображення отриманих питань у діалоговому вікні або виконання додаткових дій
-            val resultMessage = if (questionsList.isNotEmpty()) {
-                "Успішно отримано ${questionsList.size} питань"
-            } else {
-                "Питань не знайдено"
-            }
+             // Display received questions in a dialog box or perform additional actions
+             val resultMessage = if (questionsList.isNotEmpty()) {
+                 "Successfully retrieved ${questionsList.size} questions"
+             } else {
+                 "No questions found"
+             }
 
-            showResultDialog(resultMessage)
-        }
+             showResultDialog(resultMessage)
+         }
 
-        override fun onCancelled(error: DatabaseError) {
-            progressDialog.dismiss()
-            showResultDialog("Помилка читання даних: ${error.message}")
-        }
-    })
+         override fun onCancelled(error: DatabaseError) {
+             progressDialog.dismiss()
+             showResultDialog("Error reading data: ${error.message}")
+         }
+     })
 }
