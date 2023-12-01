@@ -5,7 +5,7 @@ import com.google.firebase.database.ValueEventListener
 
 // ...
 
-private fun saveHealthQuestion() {
+private fun sendQuestion() {
     val questionText = binding.qstEd1.text.toString()
 
     // Перевірка, чи введене питання не порожнє і його довжина не перевищує 500 символів
