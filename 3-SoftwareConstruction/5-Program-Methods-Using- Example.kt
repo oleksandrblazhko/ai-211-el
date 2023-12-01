@@ -5,46 +5,21 @@ import com.google.firebase.database.ValueEventListener
 
 // ...
 
-private fun sendQuestion() {
-    // Getting text entered in EditText
-    val questionText = binding.qstEd1.text.toString()
-
-    // Checking input validation: empty or more than 500 characters
-    if (questionText.isEmpty() || questionText.length > 500) {
-        // Showing a Toast message if validation fails
-        Toast.makeText(this, "Please enter a question", Toast.LENGTH_SHORT).show()
-        return
+fun sendQuestions(question: String, submission_date: Date): Int {
+    // Checking input validation: question length should be between 1 and 500 characters
+    if (question.isEmpty() || question.length > 500) {
+        return -2 // Return -2 if the question length is invalid
     }
 
-    // Generating a unique identifier for the health question
-    val quesId = dbRef.push().key!!
+    // Check if the submission_date is not the current day (assuming the current date is currentDate)
+    val currentDate = Date() // Get current date
+    if (submission_date != currentDate) {
+        return -3 // Return -3 for any other error
+    }
 
-    // Creating a HealthQuestion object from the entered question and the current date
-    val question = HealthQuestion(quesId, questionText)
-
-    // Creating and displaying a ProgressDialog for the saving process
-    val progressDialog = ProgressDialog(this)
-    progressDialog.setMessage("Saving...")
-    progressDialog.show()
-
-    // Saving the health question to Firebase Realtime Database
-    dbRef.child(quesId).setValue(question)
-        .addOnCompleteListener { task ->
-            // Dismissing the ProgressDialog after the database operation completes
-            progressDialog.dismiss()
-
-            // Determining if the database operation was successful
-            val resultMessage = if (task.isSuccessful) {
-                // Setting a success message
-                "Question successfully saved"
-            } else {
-                // Setting a failure message, including an error message if available
-                "Error: ${task.exception?.message}"
-            }
-
-            // Showing a dialog window with the result message
-            showResultDialog(resultMessage)
-        }
+    // Your logic to send the question to the database
+    // Assuming the sending process was successful
+    return 1 // Return 1 if the question was successfully sent
 }
 
 
