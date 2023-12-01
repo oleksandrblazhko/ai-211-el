@@ -1,76 +1,80 @@
-// Код активності (MainActivity)
-class MainActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityMainBinding
-    private lateinit var dbRef: DatabaseReference
+// Імпорт інструкцій для класів, пов'язаних із Firebase
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+// ...
 
-        // Ініціалізація посилання на базу даних Firebase Realtime Database
-        dbRef = FirebaseDatabase.getInstance().getReference("HealthQuestion")
+private fun saveHealthQuestion() {
+    val questionText = binding.qstEd1.text.toString()
 
-        // Обробник натискання кнопки "Надіслати"
-        binding.btnSendQuestion.setOnClickListener {
-            saveHealthQuestion()
-        }
+    // Перевірка, чи введене питання не порожнє і його довжина не перевищує 500 символів
+    if (questionText.isEmpty() || questionText.length > 500) {
+        Toast.makeText(this, "Будь ласка, введіть дійсне питання", Toast.LENGTH_SHORT).show()
+        return
     }
 
-    // Метод для збереження питань про здоров'я
-    private fun saveHealthQuestion() {
-        val questionText = binding.qstEd1.text.toString()
+    // Унікальний ідентифікатор для нового питання
+    val quesId = dbRef.push().key!!
 
-        // Перевірка, чи не порожнє введене питання та його довжина не перевищує 500 символів
-        if (questionText.isEmpty() || questionText.length > 500) {
-            Toast.makeText(this, "Будь ласка, введіть питання", Toast.LENGTH_SHORT).show()
-            return
-        }
+    // Створення об'єкту HealthQuestion з введеним питанням
+    val question = HealthQuestion(quesId, questionText)
 
-        // Створення унікального ідентифікатора для нового питання
-        val quesId = dbRef.push().key!!
+    // Відображення ProgressDialog під час збереження
+    val progressDialog = ProgressDialog(this)
+    progressDialog.setMessage("Збереження...")
+    progressDialog.show()
 
-        // Створення об'єкту HealthQuestion з введеним питанням
-        val question = HealthQuestion(quesId, questionText)
+    // Збереження питання в базу даних
+    dbRef.child(quesId).setValue(question)
+        .addOnCompleteListener { task ->
+            progressDialog.dismiss()
 
-        // Відображення ProgressDialog під час збереження
-        val progressDialog = ProgressDialog(this)
-        progressDialog.setMessage("Збереження...")
-        progressDialog.show()
-
-        // Збереження питання в базу даних
-        dbRef.child(quesId).setValue(question)
-            .addOnCompleteListener { task ->
-                progressDialog.dismiss()
-
-                // Виведення результату в діалоговому вікні
-                val resultMessage = if (task.isSuccessful) {
-                    "Питання успішно збережено"
-                } else {
-                    "Помилка: ${task.exception?.message}"
-                }
-
-                showResultDialog(resultMessage)
-            }
-    }
-
-    // Метод для відображення результату в діалоговому вікні
-    private fun showResultDialog(resultMessage: String) {
-        val builder = AlertDialog.Builder(this)
-        builder.setMessage(resultMessage)
-            .setPositiveButton("OK") { dialog, _ ->
-                dialog.dismiss()
+            // Відображення результату в діалоговому вікні
+            val resultMessage = if (task.isSuccessful) {
+                "Питання успішно збережено"
+            } else {
+                "Помилка: ${task.exception?.message}"
             }
 
-        val dialog = builder.create()
-        dialog.show()
-    }
+            showResultDialog(resultMessage)
+        }
 }
 
-// Модель HealthQuestion
-@Parcelize
-data class HealthQuestion(
-    var quesId: String? = null,
-    var question: String? = null,
-    var date: Date = Date()
-) : Parcelable
+// Додатковий метод для демонстрації читання даних з бази даних
+private fun readHealthQuestions() {
+    // Відображення ProgressDialog під час операції читання
+    val progressDialog = ProgressDialog(this)
+    progressDialog.setMessage("Читання...")
+    progressDialog.show()
+
+    // Читання даних з бази даних
+    dbRef.addListenerForSingleValueEvent(object : ValueEventListener {
+        override fun onDataChange(snapshot: DataSnapshot) {
+            progressDialog.dismiss()
+
+            // Обробка отриманих даних
+            val questionsList = mutableListOf<HealthQuestion>()
+            for (childSnapshot in snapshot.children) {
+                val question = childSnapshot.getValue(HealthQuestion::class.java)
+                question?.let {
+                    questionsList.add(it)
+                }
+            }
+
+            // Відображення отриманих питань у діалоговому вікні або виконання додаткових дій
+            val resultMessage = if (questionsList.isNotEmpty()) {
+                "Успішно отримано ${questionsList.size} питань"
+            } else {
+                "Питань не знайдено"
+            }
+
+            showResultDialog(resultMessage)
+        }
+
+        override fun onCancelled(error: DatabaseError) {
+            progressDialog.dismiss()
+            showResultDialog("Помилка читання даних: ${error.message}")
+        }
+    })
+}
