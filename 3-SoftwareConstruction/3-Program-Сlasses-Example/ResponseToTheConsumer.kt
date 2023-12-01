@@ -5,7 +5,7 @@ import kotlinx.parcelize.Parcelize
 import java.util.Date
 
 @Parcelize
-data class HealthAnswer(
+data class ResponseToTheConsumer(
     var answerId: String? = null,
     var answerText: String? = null,
     var date: Date
